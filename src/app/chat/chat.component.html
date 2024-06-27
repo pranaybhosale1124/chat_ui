@@ -1,0 +1,33 @@
+<div *ngIf="friend; else defaultChat" class="chat-main-container">
+  <app-chat-header class="chat-header" [user]="friend">
+    <ng-content></ng-content>
+  </app-chat-header>
+  <div class="chat-container">
+    <div class="chat-messages">
+      <div *ngFor="let message of messages | searchFilter:searchText"
+        [ngClass]="{'me': message.senderId === currentUser, 'user': message.senderId !== currentUser}"
+        class="chat-message">
+        <span appHighlight >{{ message.message }}</span>
+        <div class="timestamp">
+          <span>
+            {{ message.timestamp | timeAgo }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="chat-input-container">
+      <mat-form-field class="chat-input" appearance="outline">
+        <mat-icon matPrefix (click)="toggleEmojiPicker()">sentiment_satisfied_alt</mat-icon>
+        <textarea class="message-input-box" matInput cdkTextareaAutosize [(ngModel)]="newMessage"
+          #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5">
+        </textarea>
+        <button mat-icon-button matSuffix (click)="sendMessage()">
+          <mat-icon>send</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<ng-template #defaultChat>
+  <app-default-chat></app-default-chat>
+</ng-template>

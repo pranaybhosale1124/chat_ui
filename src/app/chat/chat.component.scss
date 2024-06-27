@@ -1,0 +1,96 @@
+.chat-main-container {
+  height: 98vh;
+  overflow: hidden;
+}
+
+.chat-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  // padding-top: 60px;
+}
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px 65px 16px;
+  overflow-y: auto;
+  height: -webkit-fill-available;
+}
+
+.chat-message {
+  padding: 8px;
+  margin: 4px 0;
+  border-radius: 4px;
+  max-width: 60%;
+}
+
+.chat-message.me {
+  background-color: #e1f5fe;
+  align-self: flex-end;
+  /* Align messages sent by the current user to the right */
+}
+
+.chat-message.user {
+  background-color: #f1f1f1;
+  align-self: flex-start;
+  /* Align messages sent by other users to the left */
+}
+
+.chat-input-container {
+  position: sticky;
+  width: -webkit-fill-available;
+  bottom: 0;
+  display: flex;
+  padding: 0px 18px;
+  background-color: #FFFFFF;
+}
+
+.chat-input {
+  flex: 1;
+  border-top: solid 2px #adb5bd;
+  border-radius: 5px;
+}
+
+
+.message-input-box {
+  color: black !important;
+  resize: none;
+  /* Prevent manual resizing */
+  overflow: auto;
+  /* Allow for proper scrolling if needed */
+
+}
+
+
+.timestamp {
+  font-size: 0.8rem;
+  color: #adb5bd;
+}
+
+.timestamp>span {
+  float: right;
+}
+
+.emoji-picker {
+  border: solid red;
+  padding: 20px;
+
+}
+
+.example-full-width{
+  position: fixed;
+  bottom: 0;
+  width: -webkit-fill-available;
+  margin-right: 1%;
+}
+
+textarea{
+  color: black;
+}

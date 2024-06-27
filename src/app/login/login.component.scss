@@ -1,0 +1,57 @@
+/* src/app/login/login.component.scss */
+
+.main-container {
+  height: -webkit-fill-available;
+  display: flex;
+  align-items: center;
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  /* Center the card horizontally */
+}
+
+.card-header {
+  background-color: #007bff;
+  color: #fff;
+  text-align: center;
+  /* Center the header text */
+}
+
+.card-header h3 {
+  margin: 0;
+}
+
+.card-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 300px;
+}
+
+.login-button {
+  margin: 10px 0px;
+  width: 100%;
+}
+
+
+
+.login-button-container{
+  display: flex;
+  align-items: center;
+  height: 90vh;
+  justify-content: center;
+  .login-button{
+      width: fit-content; 
+      text-align: center; 
+      display: inline-block;
+  }
+}
+

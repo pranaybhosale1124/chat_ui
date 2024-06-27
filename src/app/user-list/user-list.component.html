@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4" *ngIf="isUserListVisible || isDesktopView">
+      <div class="hello">
+        <app-header *ngIf="showHeader" class="app-header"></app-header>
+        <div class="user-list">
+          <ng-container *ngFor="let user of users">
+            <mat-card *ngIf="user.user_id != currentUserId" class="user-card" (click)="goToChat(user.user_id)">
+              <mat-card-header>
+                <div mat-card-avatar class="user-profile-icon"></div>
+                <mat-card-title>{{ user.first_name }}</mat-card-title>
+              </mat-card-header>
+            </mat-card>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8" *ngIf="!isUserListVisible || isDesktopView" style="overflow-y: auto;">
+      <div>
+        <app-chat [friendId]="friendId">
+          <span *ngIf="!isDesktopView" (click)="toggleView()">
+            <mat-icon style="font-size: 34px;">arrow_left</mat-icon>
+          </span>
+        </app-chat>
+      </div>
+    </div>
+  </div>
+</div>

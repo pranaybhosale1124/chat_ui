@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+/* Import the custom theme */
+@import 'styles-custom';
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import '@ctrl/ngx-emoji-mart/picker';
+
+html,
+body {
+  background-color: #FFFFFF;
+    height: 95vh;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #FFFFFF; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #7b1fa24d; 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #7b1fa24d; 
+  }
