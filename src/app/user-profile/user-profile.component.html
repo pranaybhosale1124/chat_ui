@@ -1,0 +1,48 @@
+<div class="profile-main-container">
+  <mat-dialog-content>
+    <button mat-icon-button (click)="close()" class="close-button">
+      <mat-icon>close</mat-icon>
+    </button>
+    <div class="profile-container">
+      <div class="defaut-profile">
+        <img *ngIf="user.profile_picture; else defaultProfile" [src]="user.profile_picture" alt="Profile Picture"
+          class="profile-picture">
+      </div>
+      <ng-template #defaultProfile>
+        <div class="defaut-profile">
+          <mat-icon class="default-profile-picture">person</mat-icon>
+        </div>
+      </ng-template>
+      <div class="user-info">
+        <div class="user-info-field">
+          <h3 *ngIf="!editMode; else editFirstName">{{ user.first_name }} {{ user.last_name }}</h3>
+          <ng-template #editFirstName>
+            <input [(ngModel)]="user.first_name" />
+            <input [(ngModel)]="user.last_name" />
+          </ng-template>
+        </div>
+        <div class="user-info-field">
+          <p *ngIf="!editMode; else editContactNumber">{{ user.contact_number || 'Contact Not Added' }}</p>
+          <ng-template #editContactNumber>
+            <input placeholder="update contact number" [(ngModel)]="user.contact_number" />
+          </ng-template>
+        </div>
+        <div class="user-info-field">
+          <p *ngIf="!editMode; else editEmail">{{ user.email_id }}</p>
+          <ng-template #editEmail>
+            <input [(ngModel)]="user.email_id" />
+          </ng-template>
+        </div>
+        <div class="user-info-field">
+          <p *ngIf="!editMode; else editInformation">{{ user.information}}</p>
+          <ng-template #editInformation>
+            <textarea placeholder="update information" [(ngModel)]="user.information"></textarea>
+          </ng-template>
+        </div>
+      </div>
+      <button *ngIf="editable" mat-icon-button (click)="toggleEditMode()" class="edit-button">
+        <mat-icon>{{ editMode ? 'save' : 'edit' }}</mat-icon>
+      </button>
+    </div>
+  </mat-dialog-content>
+</div>
