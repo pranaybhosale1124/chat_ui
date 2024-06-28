@@ -58,6 +58,7 @@ h3, p {
 
       h3, p, input, textarea {
         width: 100%;
+        margin: 2px;
       }
 
       .edit-input {
@@ -71,4 +72,13 @@ h3, p {
     position: absolute;
     right: 10px;
     top: 130px;
+  }
+
+  input{
+    border: none;
+    border-bottom: solid 2px #673ab7;
+  }
+
+  textarea{
+    border: solid 2px #673ab7;
   }
