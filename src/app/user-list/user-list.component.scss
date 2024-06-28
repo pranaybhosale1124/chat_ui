@@ -16,11 +16,6 @@
     margin: 0 auto;
   }
   
-  .user-profile-icon {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
-  
   .mat-card-title {
     font-size: calc(1rem + 0.5vw); /* Responsive font size */
   }
@@ -55,3 +50,20 @@
     }
   }
   
+  .avatar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .user-name{
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    padding-bottom: 18px;
+  }
+
+  .profile-picture{
+    width: 100%;
+    border-radius: 50%;
+  }

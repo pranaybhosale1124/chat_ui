@@ -7,8 +7,14 @@
           <ng-container *ngFor="let user of users">
             <mat-card *ngIf="user.user_id != currentUserId" class="user-card" (click)="goToChat(user.user_id)">
               <mat-card-header>
-                <div mat-card-avatar class="user-profile-icon"></div>
-                <mat-card-title>{{ user.first_name }}</mat-card-title>
+                <div class="avatar" mat-card-avatar>
+                    <img *ngIf="user.profile_picture; else defaultProfile" [src]="user.profile_picture"
+                      class="profile-picture">
+                  <ng-template #defaultProfile>
+                      <mat-icon class="default-profile-picture">person</mat-icon>
+                  </ng-template>
+                </div>
+                <div class="user-name">{{ user.first_name }} {{user.first_name}}</div>
               </mat-card-header>
             </mat-card>
           </ng-container>

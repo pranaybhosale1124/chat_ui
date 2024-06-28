@@ -38,7 +38,7 @@ export class AppService {
   }
 
   getAllUsers(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/user/get-all-users`);
+    return this.http.get<any>(`${this.apiUrl}/user/get-all-users/`);
   }
 
   getUserById(id: any) {
