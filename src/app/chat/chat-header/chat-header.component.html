@@ -2,16 +2,18 @@
   <span>
     <ng-content></ng-content>
   </span>
-  <button mat-icon-button aria-label="Profile" (click)="openUserProfile()">
-    <mat-icon>account_circle</mat-icon>
-  </button>
-  <span class="title">{{user?user.first_name+' '+user.last_name:''}}</span>
+  <div class="name-container" (click)="openUserProfile()">
+    <button mat-icon-button aria-label="Profile">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <span class="title">{{user?user.first_name+' '+user.last_name:''}}</span>
+  </div>
   <span class="spacer"></span>
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item >
+    <button mat-menu-item>
       <span>Search</span>
     </button>
     <button mat-menu-item>
@@ -19,5 +21,3 @@
     </button>
   </mat-menu>
 </mat-toolbar>
-
-

@@ -1,6 +1,7 @@
 .chat-main-container {
   height: 98vh;
   overflow: hidden;
+  // background-image: url('../../assets/images/chat_background.jpg');
 }
 
 .chat-header {
@@ -84,13 +85,29 @@
 
 }
 
-.example-full-width{
+.example-full-width {
   position: fixed;
   bottom: 0;
   width: -webkit-fill-available;
   margin-right: 1%;
 }
 
-textarea{
+textarea {
   color: black;
+}
+
+.say-hi {
+  display: flex;
+  font-weight: 500;
+  justify-content: center;
+  font-size: large;
+  align-items: center;
+
+  span {
+    cursor: pointer;
+  }
+
+  span:hover, span:focus{
+    color: #673ab7;
+  }
 }

@@ -20,6 +20,7 @@ export class ChatHeaderComponent {
     this.dialog.open(UserProfileComponent, {
       width: '90%',
       height: '90%',
+      maxWidth:'500px',
       data: { 'user': this.user,
         editable:false
        }

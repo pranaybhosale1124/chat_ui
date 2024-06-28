@@ -8,6 +8,8 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
+    height: 100vh;
+    overflow-y: auto;
   }
   
   .user-card {
@@ -26,7 +28,6 @@
 
   .hello{
     height: 99vh;
-    overflow: auto;
   }
   
   .container{

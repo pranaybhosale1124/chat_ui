@@ -105,6 +105,10 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges {
     this.searchEnabled = !this.searchEnabled;
   }
 
+  sendHiiMessage(){
+    this.newMessage='Hii';
+    this.sendMessage();
+  }
 
 
   ngOnDestroy() {

@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(UserProfileComponent, {
       width: '90%',
       height: '90%',
+      maxWidth:'500px',
       data: {
         'user': this.currentUser,
         'editable': true
