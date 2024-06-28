@@ -3,9 +3,9 @@
     <button mat-icon-button (click)="close()" class="close-button">
       <mat-icon>close</mat-icon>
     </button>
-    <div class="profile-container">
+    <div *ngIf="user" class="profile-container">
       <div class="defaut-profile">
-        <img *ngIf="user.profile_picture; else defaultProfile" [src]="user.profile_picture" alt="Profile Picture"
+        <img *ngIf="user.profile_picture; else defaultProfile" [src]="user.profile_picture"
           class="profile-picture">
       </div>
       <ng-template #defaultProfile>
