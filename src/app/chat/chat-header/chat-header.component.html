@@ -3,9 +3,13 @@
     <ng-content></ng-content>
   </span>
   <div class="name-container" (click)="openUserProfile()">
-    <button mat-icon-button aria-label="Profile">
-      <mat-icon>account_circle</mat-icon>
-    </button>
+    <div class="avatar" mat-card-avatar>
+      <img *ngIf="user.profile_picture; else defaultProfile" [src]="user.profile_picture"
+        class="profile-picture">
+    <ng-template #defaultProfile>
+      <mat-icon class="account-circle">account_circle</mat-icon>
+    </ng-template>
+  </div>
     <span class="title">{{user?user.first_name+' '+user.last_name:''}}</span>
   </div>
   <span class="spacer"></span>

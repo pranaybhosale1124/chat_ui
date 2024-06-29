@@ -1,72 +1,80 @@
-.app-header{
-    position: sticky;
-    top: 0;
-    z-index: 10;
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .user-list {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    height: 100vh;
-    overflow-y: auto;
-  }
-  
-  .user-card {
-    cursor: pointer;
-    width: 100%;
-    // max-width: 400px;
-    margin: 0 auto;
-  }
-  
-  .mat-card-title {
-    font-size: calc(1rem + 0.5vw); /* Responsive font size */
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  height: 100vh;
+  overflow-y: auto;
+}
 
-  .user-card{
-    background-color: #FFFFFF;
-  }
+.user-card {
+  cursor: pointer;
+  width: 100%;
+  // max-width: 400px;
+  margin: 0 auto;
+}
 
-  .hello{
-    height: 99vh;
-    overflow: hidden;
-  }
-  
-  .container{
-    margin: 0px;
-    padding: 0px;
-    min-width: 100%;
-  }
+.mat-card-title {
+  font-size: calc(1rem + 0.5vw);
+  /* Responsive font size */
+}
 
-  .row>*{
-    padding: 2px;
-    // margin: 2px;
-  }
+.user-card {
+  background-color: #FFFFFF;
+}
 
-  .row{
-    margin: 2px;
-  }
+.hello {
+  height: 99vh;
+  overflow: hidden;
+}
 
-  @media (min-width: 768px) {
-    .d-md-none {
-      display: none;
-    }
-  }
-  
-  .avatar{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .user-name{
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
-    padding-bottom: 18px;
-  }
+.container {
+  margin: 0px;
+  padding: 0px;
+  min-width: 100%;
+}
 
-  .profile-picture{
-    width: 100%;
-    border-radius: 50%;
+.row>* {
+  padding: 2px;
+  // margin: 2px;
+}
+
+.row {
+  margin: 2px;
+}
+
+@media (min-width: 768px) {
+  .d-md-none {
+    display: none;
   }
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-name {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  padding-bottom: 18px;
+}
+
+.profile-picture {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.account-circle {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+}

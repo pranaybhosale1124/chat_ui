@@ -3,7 +3,7 @@
     <div class="col-md-4" *ngIf="isUserListVisible || isDesktopView">
       <div class="hello">
         <app-header *ngIf="showHeader" class="app-header"></app-header>
-        <div class="user-list">
+        <div class="user-list" style="padding-bottom: 100px;">
           <ng-container *ngFor="let user of users">
             <mat-card *ngIf="user.user_id != currentUserId" class="user-card" (click)="goToChat(user.user_id)">
               <mat-card-header>
@@ -11,7 +11,7 @@
                     <img *ngIf="user.profile_picture; else defaultProfile" [src]="user.profile_picture"
                       class="profile-picture">
                   <ng-template #defaultProfile>
-                      <mat-icon class="default-profile-picture">person</mat-icon>
+                      <mat-icon class="account-circle">account_circle</mat-icon>
                   </ng-template>
                 </div>
                 <div class="user-name">{{ user.first_name }} {{user.last_name}}</div>

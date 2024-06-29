@@ -1,6 +1,6 @@
 .title {
   font-size: 2.5vh !important;
-  margin-left: 16px;
+  margin-left: 8px;
   font-size: 1.5rem;
   flex-grow: 1;
 }
@@ -9,6 +9,23 @@
   flex: 1 1 auto;
 }
 
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+}
+
+.profile-picture {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.account-circle{
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+}
 .name-container{
   cursor: pointer;
   display: flex;
