@@ -15,7 +15,7 @@
       </ng-template>
       <div class="user-info">
         <div style="display: flex;" class="user-info-field">
-          <h3 *ngIf="!editMode; else editFirstName">{{ user.first_name }} {{ user.last_name }}</h3>
+          <h3 style="font-weight: 600;" *ngIf="!editMode; else editFirstName">{{ user.first_name }} {{ user.last_name }}</h3>
           <ng-template #editFirstName>
             <input [(ngModel)]="user.first_name" />
             <input [(ngModel)]="user.last_name" />

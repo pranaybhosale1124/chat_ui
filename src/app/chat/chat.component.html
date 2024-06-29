@@ -7,7 +7,7 @@
       <div *ngFor="let message of messages | searchFilter:searchText"
         [ngClass]="{'me': message.senderId === currentUser, 'user': message.senderId !== currentUser}"
         class="chat-message">
-        <span appHighlight >{{ message.message }}</span>
+        <pre >{{ message.message }}</pre>
         <div class="timestamp">
           <span>
             {{ message.timestamp | timeAgo }}

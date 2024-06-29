@@ -12,6 +12,14 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  pre {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    font-size: 14px;
+    margin: 0px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
 }
 
 ::-webkit-scrollbar {

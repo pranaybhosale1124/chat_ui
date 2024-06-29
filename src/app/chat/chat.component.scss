@@ -13,7 +13,7 @@
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 98vh;
   // padding-top: 60px;
 }
 
@@ -55,8 +55,6 @@
 
 .chat-input {
   flex: 1;
-  border-top: solid 2px #adb5bd;
-  border-radius: 5px;
 }
 
 
