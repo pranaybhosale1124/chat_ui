@@ -1,17 +1,17 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-4" *ngIf="isUserListVisible || isDesktopView">
-      <div class="hello">
+  <div class="row" style="height: 98vh; overflow-y: hidden;">
+    <div class="col-md-4" [ngClass]="{'hide-tab': !isUserListVisible && !isDesktopView}">
+      <div>
         <app-header *ngIf="showHeader" class="app-header"></app-header>
         <div class="user-list" style="padding-bottom: 100px;">
           <ng-container *ngFor="let user of users">
             <mat-card *ngIf="user.user_id != currentUserId" class="user-card" (click)="goToChat(user.user_id)">
               <mat-card-header>
                 <div class="avatar" mat-card-avatar>
-                    <img *ngIf="user.profile_picture; else defaultProfile" [src]="user.profile_picture"
-                      class="profile-picture">
+                  <img *ngIf="user.profile_picture; else defaultProfile" [src]="user.profile_picture"
+                    class="profile-picture">
                   <ng-template #defaultProfile>
-                      <mat-icon class="account-circle">account_circle</mat-icon>
+                    <mat-icon class="account-circle">account_circle</mat-icon>
                   </ng-template>
                 </div>
                 <div class="user-name">{{ user.first_name }} {{user.last_name}}</div>
@@ -21,9 +21,9 @@
         </div>
       </div>
     </div>
-    <div class="col-md-8" *ngIf="!isUserListVisible || isDesktopView" style="overflow-y: auto;">
+    <div class="col-md-8" [ngClass]="{'hide-tab': isUserListVisible && !isDesktopView}">
       <div>
-        <app-chat [friendId]="friendId">
+        <app-chat [friendId]="friendId" (newMessageEvent)="newMessage($event)">
           <span *ngIf="!isDesktopView" (click)="toggleView()">
             <mat-icon style="font-size: 34px;">arrow_left</mat-icon>
           </span>

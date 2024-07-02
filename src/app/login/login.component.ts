@@ -24,10 +24,8 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.socialAuthService.authState.subscribe((user) => {
-      console.log("user:::",user);
       sessionStorage.setItem('google_id_token',user.idToken );
       this.appService.loginByGoogle(user.idToken).subscribe((user:any)=>{
-        console.log('user:::', user);
         sessionStorage.setItem('currentUserId', user.user_id)
         let currentUser=JSON.stringify(user)
         sessionStorage.setItem('currentUser', currentUser)
@@ -36,7 +34,6 @@ export class LoginComponent implements OnInit {
       },
       (err)=>{
         console.log(err);
-        
       }
     )
     });

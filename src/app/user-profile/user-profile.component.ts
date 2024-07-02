@@ -37,14 +37,7 @@ export class UserProfileComponent {
 
   updateUser(): void {
     this.appService.updateUser(this.user).subscribe(response => {
-      console.log('User updated:', response);
       this.appService.setCurrentUser(response);
     });
-  }
-
-  mockApiCall(updatedUser: any): Observable<any> {
-    // Mock API call
-    console.log('Mock API call with user data:', updatedUser);
-    return of(updatedUser); // Replace with actual HTTP request in real implementation
   }
 }

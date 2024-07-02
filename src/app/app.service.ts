@@ -33,12 +33,11 @@ export class AppService {
   }
 
   register(currentUserId: any) {
-    console.log(currentUserId, 'register');
     this.socket.emit('store_user', currentUserId);
   }
 
-  getAllUsers(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/user/get-all-users/`);
+  getAllUsers(user_id:any): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/user/get-all-users/${user_id}`);
   }
 
   getUserById(id: any) {

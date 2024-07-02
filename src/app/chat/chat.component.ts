@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -22,6 +22,7 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChild('chatContainer') private chatContainer!: ElementRef;
   @Input() friendId: any;
   @Input() friend: any;
+  @Output() newMessageEvent = new EventEmitter<string>();
   currentUser: any;
   messages: any = [];
   searchText: string = '';
@@ -33,14 +34,13 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges {
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
-
+    this.getMessage()
   }
 
   ngOnChanges() {
     this.currentUser = sessionStorage.getItem('currentUserId');
     this.appService.getUserById(this.friendId).subscribe((res) => {
       this.friend = res.data
-      this.getMessage()
     })
     if (this.friendId) {
       this.appService.getChat(this.currentUser, this.friendId).subscribe((chat) => {
@@ -51,11 +51,10 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   getMessage() {
+    
     this.appService.getMessage().subscribe((data: any) => {
-      console.log(data);
-
-      if (data.senderId != this.friend.user_id) {
-        alert(`new Message from ${data.senderId}`)
+      this.newMessageEvent.emit(data);
+      if (data.senderId != this.friend?.user_id) {
         return;
       }
 
@@ -105,8 +104,8 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges {
     this.searchEnabled = !this.searchEnabled;
   }
 
-  sendHiiMessage(){
-    this.newMessage='Hii';
+  sendHiiMessage() {
+    this.newMessage = 'Hii';
     this.sendMessage();
   }
 

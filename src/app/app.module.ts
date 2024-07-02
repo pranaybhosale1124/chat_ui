@@ -10,7 +10,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './user-list/header/header.component';
 
-import { PickerComponent  } from '@ctrl/ngx-emoji-mart';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 // Angular Material
@@ -22,7 +22,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ChatComponent } from './chat/chat.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 // pipes
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
 
@@ -73,7 +73,7 @@ const socketConfig: SocketIoConfig = { url: 'http://localhost:3000', options: {}
     FormsModule,
     PickerComponent,
     FlexLayoutModule,
-    
+
     //Angular Material
     MatButtonModule,
     MatCardModule,
@@ -83,8 +83,8 @@ const socketConfig: SocketIoConfig = { url: 'http://localhost:3000', options: {}
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
-    MatSidenavModule
-
+    MatSidenavModule,
+    MatSnackBarModule
 
   ],
   providers: [
@@ -102,7 +102,7 @@ const socketConfig: SocketIoConfig = { url: 'http://localhost:3000', options: {}
             )
           }
         ],
-        onError: (err:any) => {
+        onError: (err: any) => {
           console.error(err);
         }
       } as SocialAuthServiceConfig,
