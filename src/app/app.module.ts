@@ -99,7 +99,7 @@ const socketConfig: SocketIoConfig = { url: environment.apiUrl, options: {} };
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '812383719002-m9ng6v57jds0cd452f15nlq7lomivtca.apps.googleusercontent.com'    //ClientID
+              environment.google_client_id    //ClientID
             )
           }
         ],
