@@ -4,13 +4,14 @@ import { BehaviorSubject, Observable, Observer } from 'rxjs';
 
 import { Socket } from 'ngx-socket-io';
 import { map } from 'rxjs/operators';
+import { environment } from 'environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
 
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = environment.apiUrl;
 
   currentUserSubject = new BehaviorSubject<any>(null);
   currentUser$ = this.currentUserSubject.asObservable();

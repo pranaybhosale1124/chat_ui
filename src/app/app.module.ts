@@ -37,11 +37,12 @@ import { DefaultChatComponent } from './chat/default-chat/default-chat.component
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
 import { SearchHighlightPipe } from './pipes/search-highlight.pipe';
 import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { environment } from 'environments/environment.prod';
 // import { MyInterceptor } from './my-interceptor.interceptor';
 //directives
 
 
-const socketConfig: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+const socketConfig: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
 @NgModule({
   declarations: [
