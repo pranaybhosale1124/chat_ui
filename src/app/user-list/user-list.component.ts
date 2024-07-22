@@ -61,12 +61,11 @@ export class UserListComponent implements OnInit {
   }
 
   newMessage(data: any) {
-    const userIndex = this.users.findIndex(user => user.user_id === data.senderId || user.user_id === data.recipientId);
-
+    const userIndex = this.users.findIndex(user => user.user_id == data.senderId || user.user_id == data.recipientId);
     if (userIndex !== -1) {
       // Existing user
       const sender = this.users[userIndex];
-      if (userIndex === data.senderId)
+      if (sender.user_id == data.senderId)
         sender.notViewed = true; // Mark as not viewed
       this.users.splice(userIndex, 1);
       this.users = [sender, ...this.users];
@@ -75,10 +74,7 @@ export class UserListComponent implements OnInit {
       // New user
       const newUserId = data.senderId;
       this.appService.getUserById(newUserId).subscribe(newUserDetails => {
-        let nw = false
-        if (userIndex === data.senderId)
-          nw = userIndex === data.senderId
-        const newUser = { ...newUserDetails.data, notViewed: nw }; // Add notViewed property
+        const newUser = { ...newUserDetails.data, notViewed: true }; // Add notViewed property
         this.users = [newUser, ...this.users]; // Add the new user to the beginning of the array
         localStorage.setItem('users', JSON.stringify(this.users));
       });
@@ -90,8 +86,8 @@ export class UserListComponent implements OnInit {
     const mergedUsers = [...localUsers];
 
     fetchedUsers.forEach(fetchedUser => {
-      const existingUserIndex = localUsers.findIndex(localUser => localUser.user_id === fetchedUser.user_id);
-      if (existingUserIndex === -1) {
+      const existingUserIndex = localUsers.findIndex(localUser => localUser.user_id == fetchedUser.user_id);
+      if (existingUserIndex == -1) {
         mergedUsers.push(fetchedUser);
       }
     });
