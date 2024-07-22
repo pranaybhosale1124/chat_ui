@@ -65,7 +65,7 @@ export class UserListComponent implements OnInit {
     if (userIndex !== -1) {
       // Existing user
       const sender = this.users[userIndex];
-      if (sender.user_id == data.senderId)
+      if (sender.user_id == data.senderId && sender.user_id!=this.friendId)
         sender.notViewed = true; // Mark as not viewed
       this.users.splice(userIndex, 1);
       this.users = [sender, ...this.users];
