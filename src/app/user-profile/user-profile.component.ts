@@ -38,6 +38,7 @@ export class UserProfileComponent {
   updateUser(): void {
     this.appService.updateUser(this.user).subscribe(response => {
       this.appService.setCurrentUser(response);
+      sessionStorage.setItem('currentUser', JSON.stringify(this.user))
     });
   }
 }
