@@ -19,7 +19,7 @@ export class UserListComponent implements OnInit {
 
 
   constructor(
-    private appSerice: AppService,
+    private appService: AppService,
     private _snackBar: MatSnackBar,
     private router: Router) { }
 
@@ -28,44 +28,74 @@ export class UserListComponent implements OnInit {
     window.addEventListener('resize', this.checkIfDesktop.bind(this));
 
     this.currentUserId = sessionStorage.getItem('currentUserId');
+    this.users = JSON.parse(localStorage.getItem('users') || '[]');
 
-    this.appSerice.getAllUsers(this.currentUserId).subscribe((users: any) => {
-      this.users = users.data;
+    this.appService.getAllUsers(this.currentUserId).subscribe((response: any) => {
+      const fetchedUsers = response.data;
+      this.users = this.mergeUsers(this.users, fetchedUsers);
+      localStorage.setItem('users', JSON.stringify(this.users));
     });
   }
 
-
   goToChat(friendId: string): void {
-    // this.router.navigate(['/chat', friendId]);
-    this.friendId = friendId
-    this.toggleView()
+    this.friendId = friendId;
+    this.toggleView();
+    for (let i = 0; i < this.users.length; i++) {
+      const user = this.users[i];
+      if (user.user_id == friendId) {
+        user.notViewed = false;
+        localStorage.setItem('users', JSON.stringify(this.users));
+        break;
+      }
+    }
   }
-
 
   checkIfDesktop() {
     this.isDesktopView = window.innerWidth >= 768;
   }
 
   toggleView() {
-    if (!this.isDesktopView)
+    if (!this.isDesktopView) {
       this.isUserListVisible = !this.isUserListVisible;
+    }
   }
 
-  newMessage(data:any) {
-    const userIndex = this.users.findIndex(user => (user.user_id == data.senderId || user.user_id == data.recipientId));
+  newMessage(data: any) {
+    const userIndex = this.users.findIndex(user => user.user_id === data.senderId || user.user_id === data.recipientId);
+
     if (userIndex !== -1) {
-      // Sender found in the users array
+      // Existing user
       const sender = this.users[userIndex];
-      this.users.splice(userIndex, 1); // Remove the sender from its current position
-      this.users=[sender, ...this.users]; // Add the sender to the beginning of the array
+      if (userIndex === data.senderId)
+        sender.notViewed = true; // Mark as not viewed
+      this.users.splice(userIndex, 1);
+      this.users = [sender, ...this.users];
+      localStorage.setItem('users', JSON.stringify(this.users));
+    } else {
+      // New user
+      const newUserId = data.senderId;
+      this.appService.getUserById(newUserId).subscribe(newUserDetails => {
+        let nw = false
+        if (userIndex === data.senderId)
+          nw = userIndex === data.senderId
+        const newUser = { ...newUserDetails.data, notViewed: nw }; // Add notViewed property
+        this.users = [newUser, ...this.users]; // Add the new user to the beginning of the array
+        localStorage.setItem('users', JSON.stringify(this.users));
+      });
     }
-    // if(data.senderId!=this.friendId || data.senderId==this.currentUserId){
-    //   return
-    // }
-    // this._snackBar.open(`new Message`, '', {
-    //   horizontalPosition: 'center',
-    //   verticalPosition: 'top',
-    //   duration: 1000
-    // });
+  }
+
+
+  mergeUsers(localUsers: any[], fetchedUsers: any[]): any[] {
+    const mergedUsers = [...localUsers];
+
+    fetchedUsers.forEach(fetchedUser => {
+      const existingUserIndex = localUsers.findIndex(localUser => localUser.user_id === fetchedUser.user_id);
+      if (existingUserIndex === -1) {
+        mergedUsers.push(fetchedUser);
+      }
+    });
+
+    return mergedUsers;
   }
 }

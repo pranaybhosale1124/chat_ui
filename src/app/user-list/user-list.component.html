@@ -8,13 +8,15 @@
             <mat-card *ngIf="user.user_id != currentUserId" class="user-card" (click)="goToChat(user.user_id)">
               <mat-card-header>
                 <div class="avatar" mat-card-avatar>
-                  <img *ngIf="user.profile_picture; else defaultProfile" [src]="user.profile_picture"
-                    class="profile-picture">
+                  <img *ngIf="user.profile_picture; else defaultProfile" [src]="user.profile_picture" class="profile-picture">
                   <ng-template #defaultProfile>
                     <mat-icon class="account-circle">account_circle</mat-icon>
                   </ng-template>
                 </div>
-                <div class="user-name">{{ user.first_name }} {{user.last_name}}</div>
+                <div class="user-name">
+                  {{ user.first_name }} {{user.last_name}}
+                  <span *ngIf="user.notViewed" class="not-viewed-indicator">•</span>
+                </div>
               </mat-card-header>
             </mat-card>
           </ng-container>
