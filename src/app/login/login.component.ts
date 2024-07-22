@@ -19,7 +19,10 @@ export class LoginComponent implements OnInit {
     private socialAuthService: SocialAuthService) { }
 
     ngOnInit(){
-      this.login()
+      if(this.appService.isLoggedIn())
+        this.router.navigate(['/']);
+      else
+        this.login()
     }
 
   login() {
