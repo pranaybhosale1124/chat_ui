@@ -3,7 +3,7 @@
     <ng-content></ng-content>
   </app-chat-header>
   <div class="chat-container">
-    <div *ngIf="messages?.length>0; else start_message " class="chat-messages">
+    <div #chatMessages *ngIf="messages?.length>0; else start_message " class="chat-messages">
       <div *ngFor="let message of messages | searchFilter:searchText"
         [ngClass]="{'me': message.senderId === currentUser, 'user': message.senderId !== currentUser}"
         class="chat-message">

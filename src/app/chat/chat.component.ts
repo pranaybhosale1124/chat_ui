@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -6,6 +6,7 @@ import { EmojiPickerDialogComponent } from '../emoji-picker-dialog/emoji-picker-
 import { Subject, takeUntil } from 'rxjs';
 import { AppService } from '../app.service';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { PlaySoundService } from '../play-sound.service';
 
 
 @Component({
@@ -13,13 +14,13 @@ import { UserProfileComponent } from '../user-profile/user-profile.component';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit, OnDestroy, OnChanges {
+export class ChatComponent implements OnInit, OnDestroy, OnChanges, AfterViewChecked {
 
   newMessage: string = '';
 
   private destroy$ = new Subject<void>();
 
-  @ViewChild('chatContainer') private chatContainer!: ElementRef;
+  @ViewChild('chatMessages') private chatMessages!: ElementRef;
   @Input() friendId: any;
   @Input() friend: any;
   @Output() newMessageEvent = new EventEmitter<string>();
@@ -30,6 +31,7 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(
     private appService: AppService,
+    private playSoundService: PlaySoundService,
     private route: ActivatedRoute,
     public dialog: MatDialog) { }
 
@@ -48,6 +50,18 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges {
         this.messages = chat.chat_data
       })
     }
+  }
+
+  ngAfterViewChecked() {
+    // Scroll to the bottom when the view initializes
+    if(this.chatMessages){
+      this.scrollToBottom()
+    }
+  }
+
+  scrollToBottom(): void {
+    const container = this.chatMessages.nativeElement;
+    container.scrollTop = container.scrollHeight;
   }
 
   getMessage() {
@@ -74,7 +88,7 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges {
       this.appService.sendMessage(this.currentUser, this.friend.user_id, this.newMessage)
       this.updateLocalChatMemory()
       this.newMessage = '';
-
+      this.playSoundService.playSentSound()
     }
   }
 

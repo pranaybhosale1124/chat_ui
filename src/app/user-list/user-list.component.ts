@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PlaySoundService } from '../play-sound.service';
 
 @Component({
   selector: 'app-user-list',
@@ -20,6 +21,7 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private appService: AppService,
+    private playSoundService: PlaySoundService,
     private _snackBar: MatSnackBar,
     private router: Router) { }
 
@@ -61,6 +63,8 @@ export class UserListComponent implements OnInit {
   }
 
   newMessage(data: any) {
+    if(data.senderId!=this.currentUserId)
+      this.playSoundService.playNotificationSound()
     const userIndex = this.users.findIndex(user => user.user_id == data.senderId || user.user_id == data.recipientId);
     if (userIndex !== -1) {
       // Existing user
