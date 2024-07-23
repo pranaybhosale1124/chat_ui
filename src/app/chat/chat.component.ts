@@ -49,12 +49,10 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges, AfterViewChe
       this.appService.getChat(this.currentUser, this.friendId).subscribe((chat) => {
         // // sessionStorage.setItem(this.friend.user_id, JSON.stringify(chat.chat_data))
         this.messages = chat.chat_data
-        setTimeout(() => {
-          this.showSpinner = false
-        }, 1000);
+        this.showSpinner = false
       })
-    }else{
-      this.friend=null
+    } else {
+      this.friend = null
     }
   }
 
