@@ -27,7 +27,7 @@
       <div>
         <app-chat [friendId]="friendId" (newMessageEvent)="newMessage($event)">
           <span *ngIf="!isDesktopView" (click)="toggleView()">
-            <mat-icon style="font-size: 34px;">arrow_left</mat-icon>
+            <mat-icon (click)="killAciveChat()" style="font-size: 34px;">arrow_left</mat-icon>
           </span>
         </app-chat>
       </div>

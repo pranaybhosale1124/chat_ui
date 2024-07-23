@@ -22,8 +22,8 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges, AfterViewChe
 
   @ViewChild('chatMessages') private chatMessages!: ElementRef;
   @Input() friendId: any;
-  @Input() friend: any;
   @Output() newMessageEvent = new EventEmitter<string>();
+  friend: any;
   currentUser: any;
   messages: any = [];
   searchText: string = '';
@@ -53,6 +53,8 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges, AfterViewChe
           this.showSpinner = false
         }, 1000);
       })
+    }else{
+      this.friend=null
     }
   }
 

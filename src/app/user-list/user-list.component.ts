@@ -132,4 +132,8 @@ export class UserListComponent implements OnInit {
     })
   }
 
+  killAciveChat(){
+    this.friendId=null
+  }
+
 }
