@@ -5,7 +5,7 @@
   <div class="chat-container">
     <div #chatMessages *ngIf="messages?.length>0; else start_message " class="chat-messages">
       <div *ngFor="let message of messages | searchFilter:searchText"
-        [ngClass]="{'me': message.senderId === currentUser, 'user': message.senderId !== currentUser}"
+        [ngClass]="{'me': message.senderId == currentUser, 'user': message.senderId != currentUser}"
         class="chat-message">
         <pre >{{ message.message }}</pre>
         <div class="timestamp">
