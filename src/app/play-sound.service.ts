@@ -9,8 +9,8 @@ export class PlaySoundService {
   private sentAudio = new Audio();
 
   constructor() {
-    this.notificationAudio.src = 'assets/audios/notification-defaut.mp3';
-    this.sentAudio.src='assets/audios/sent-notification.wav'
+    this.notificationAudio.src = 'assets/audios/message-alert.mp3';
+    this.sentAudio.src='assets/audios/sent-alert.mp3'
     this.notificationAudio.load();
     this.sentAudio.load();
   }
