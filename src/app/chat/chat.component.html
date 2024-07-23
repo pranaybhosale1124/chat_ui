@@ -34,5 +34,11 @@
   </div>
 </div>
 <ng-template #defaultChat>
-  <app-default-chat></app-default-chat>
+  <div *ngIf="!showSpinner">
+    <app-default-chat></app-default-chat>
+  </div>
 </ng-template>
+
+<div *ngIf="showSpinner" style="display: flex; width: 100%; height: 100vh; align-items: center; justify-content: center;">
+  <mat-spinner style="opacity: 60%;"></mat-spinner>
+</div>

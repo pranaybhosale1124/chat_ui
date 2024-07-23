@@ -22,6 +22,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ChatComponent } from './chat/chat.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 // pipes
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
@@ -85,7 +86,8 @@ const socketConfig: SocketIoConfig = { url: environment.apiUrl, options: {} };
     MatInputModule,
     MatDialogModule,
     MatSidenavModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule
 
   ],
   providers: [

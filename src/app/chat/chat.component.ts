@@ -28,7 +28,7 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges, AfterViewChe
   messages: any = [];
   searchText: string = '';
   searchEnabled: boolean = false;
-
+  showSpinner: boolean = false
   constructor(
     private appService: AppService,
     private playSoundService: PlaySoundService,
@@ -41,20 +41,24 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges, AfterViewChe
 
   ngOnChanges() {
     this.currentUser = sessionStorage.getItem('currentUserId');
-    this.appService.getUserById(this.friendId).subscribe((res) => {
-      this.friend = res.data
-    })
     if (this.friendId) {
+      this.showSpinner = true
+      this.appService.getUserById(this.friendId).subscribe((res) => {
+        this.friend = res.data
+      })
       this.appService.getChat(this.currentUser, this.friendId).subscribe((chat) => {
         // // sessionStorage.setItem(this.friend.user_id, JSON.stringify(chat.chat_data))
         this.messages = chat.chat_data
+        setTimeout(() => {
+          this.showSpinner = false
+        }, 1000);
       })
     }
   }
 
   ngAfterViewChecked() {
     // Scroll to the bottom when the view initializes
-    if(this.chatMessages){
+    if (this.chatMessages) {
       this.scrollToBottom()
     }
   }
@@ -65,7 +69,7 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges, AfterViewChe
   }
 
   getMessage() {
-    
+
     this.appService.getMessage().subscribe((data: any) => {
       this.newMessageEvent.emit(data);
       if (data.senderId != this.friend?.user_id) {

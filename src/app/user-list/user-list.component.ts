@@ -28,13 +28,16 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
     this.checkIfDesktop();
     window.addEventListener('resize', this.checkIfDesktop.bind(this));
+    this.fetchChatList()
+  }
 
+  async fetchChatList() {
     this.currentUserId = sessionStorage.getItem('currentUserId');
     this.users = JSON.parse(localStorage.getItem('users') || '[]');
 
-    this.appService.getAllUsers(this.currentUserId).subscribe((response: any) => {
-      const fetchedUsers = response.data;
-      this.users = this.mergeUsers(this.users, fetchedUsers);
+    this.appService.getAllUsers(this.currentUserId).subscribe(async (alUsers: any) => {
+      const fetchedUsers = alUsers.data;
+      this.users = await this.mergeUsers(this.users, fetchedUsers);
       localStorage.setItem('users', JSON.stringify(this.users));
     });
   }
@@ -63,13 +66,13 @@ export class UserListComponent implements OnInit {
   }
 
   newMessage(data: any) {
-    if(data.senderId!=this.currentUserId)
+    if (data.senderId != this.currentUserId)
       this.playSoundService.playNotificationSound()
     const userIndex = this.users.findIndex(user => user.user_id == data.senderId || user.user_id == data.recipientId);
     if (userIndex !== -1) {
       // Existing user
       const sender = this.users[userIndex];
-      if (sender.user_id == data.senderId && sender.user_id!=this.friendId)
+      if (sender.user_id == data.senderId && sender.user_id != this.friendId)
         sender.notViewed = true; // Mark as not viewed
       this.users.splice(userIndex, 1);
       this.users = [sender, ...this.users];
@@ -86,16 +89,40 @@ export class UserListComponent implements OnInit {
   }
 
 
-  mergeUsers(localUsers: any[], fetchedUsers: any[]): any[] {
-    const mergedUsers = [...localUsers];
+  async mergeUsers(localUsers: any[], fetchedUsers: any[]): Promise<any> {
+    return new Promise((resolve, reject) => {
+      // Step 1: Convert localUsers array to a map for quick lookup
+      const localUsersMap = localUsers.reduce((acc, user) => {
+        acc[user.user_id] = user;
+        return acc;
+      }, {});
 
-    fetchedUsers.forEach(fetchedUser => {
-      const existingUserIndex = localUsers.findIndex(localUser => localUser.user_id == fetchedUser.user_id);
-      if (existingUserIndex == -1) {
-        mergedUsers.push(fetchedUser);
-      }
-    });
+      // Step 2: Iterate over fetchedUsers and add to the map if they don't exist
+      fetchedUsers.forEach(fetchedUser => {
+        if (!localUsersMap.hasOwnProperty(fetchedUser.user_id)) {
+          localUsersMap[fetchedUser.user_id] = fetchedUser;
+        }
+      });
+      let tempOparr: any = []
+      this.appService.getUnreadChats(this.currentUserId).subscribe((unreadChatIds: any) => {
+        unreadChatIds.forEach((unreadId: any) => {
+          if (localUsersMap[unreadId]) {
+            localUsersMap[unreadId].notViewed = true
+            tempOparr.push(localUsersMap[unreadId]);
+            this.playSoundService.playNotificationSound()
+            delete localUsersMap[unreadId]
+          }
+        });
 
-    return mergedUsers;
+        for (const key in localUsersMap) {
+          if (localUsersMap[key])
+            tempOparr.push(localUsersMap[key])
+        }
+
+        // Step 3: Return the map (object) directly
+        resolve(tempOparr);
+      })
+    })
   }
+
 }

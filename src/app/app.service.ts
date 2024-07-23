@@ -41,6 +41,10 @@ export class AppService {
     return this.http.get<any>(`${this.apiUrl}/user/get-all-users/${user_id}`);
   }
 
+  getUnreadChats(user_id: any) {
+    return this.http.get(`${this.apiUrl}/recent-chats/unread-chats/${user_id}`);
+  }
+
   getUserById(id: any) {
     return this.http.get<any>(`${this.apiUrl}/user/get-user/${id}`);
   }
