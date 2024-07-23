@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('currentUser', currentUser)
         this.appService.setCurrentUser(user);
         this.router.navigate(['/']);
+        window.location.reload();
       },
       (err)=>{
         console.log(err);
