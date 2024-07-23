@@ -9,7 +9,6 @@ export class PlaySoundService {
   private sentAudio = new Audio();
 
   constructor() {
-    this.notificationAudio.muted = true;
     this.notificationAudio.src = 'assets/audios/notification-defaut.mp3';
     this.sentAudio.src='assets/audios/sent-notification.wav'
     this.notificationAudio.load();
@@ -17,10 +16,10 @@ export class PlaySoundService {
   }
 
   playNotificationSound() {
-    this.notificationAudio.play().catch(error => console.error('Error playing sound:', error));
+    this.notificationAudio.play().catch(error => console.log('Error playing sound:', error));
   }
 
   playSentSound() {
-    this.sentAudio.play().catch(error => console.error('Error playing sound:', error));
+    this.sentAudio.play().catch(error => console.log('Error playing sound:', error));
   }
 }
