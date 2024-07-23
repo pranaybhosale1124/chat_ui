@@ -113,11 +113,18 @@ export class UserListComponent implements OnInit {
             delete localUsersMap[unreadId]
           }
         });
-
+        let pendingChatsArr=[]
+        let chatsArr=[]
         for (const key in localUsersMap) {
-          if (localUsersMap[key])
-            tempOparr.push(localUsersMap[key])
+          
+          if (localUsersMap[key]){
+            if(localUsersMap[key].notViewed==true)
+              pendingChatsArr.push(localUsersMap[key])
+            else
+              chatsArr.push(localUsersMap[key])
+          }
         }
+        tempOparr=[...tempOparr, ...pendingChatsArr, ...chatsArr]
 
         // Step 3: Return the map (object) directly
         resolve(tempOparr);
