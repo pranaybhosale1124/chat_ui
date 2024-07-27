@@ -91,49 +91,36 @@ export class UserListComponent implements OnInit {
 
   async mergeUsers(localUsers: any[], fetchedUsers: any[]): Promise<any> {
     return new Promise((resolve, reject) => {
-      // Step 1: Convert localUsers array to a map for quick lookup
       const localUsersMap = localUsers.reduce((acc, user) => {
         acc[user.user_id] = user;
         return acc;
       }, {});
 
-      // Step 2: Iterate over fetchedUsers and add to the map if they don't exist
-      fetchedUsers.forEach(fetchedUser => {
-        if (!localUsersMap.hasOwnProperty(fetchedUser.user_id)) {
-          localUsersMap[fetchedUser.user_id] = fetchedUser;
-        }
-      });
-      let tempOparr: any = []
+      fetchedUsers = fetchedUsers.filter((el) => {
+        return !localUsersMap[el.user_id]
+      })
+      fetchedUsers.forEach((el) => {
+        localUsersMap[el.user_id] = el
+      })
+      localUsers = [...localUsers, ...fetchedUsers]
       this.appService.getUnreadChats(this.currentUserId).subscribe((unreadChatIds: any) => {
-        unreadChatIds.forEach((unreadId: any) => {
-          if (localUsersMap[unreadId]) {
-            localUsersMap[unreadId].notViewed = true
-            tempOparr.push(localUsersMap[unreadId]);
+        for (let i = 0; i < localUsers.length; i++) {
+          const usrId = "" + localUsers[i].user_id;
+          if (unreadChatIds.includes(usrId)) {
             this.playSoundService.playNotificationSound()
-            delete localUsersMap[unreadId]
-          }
-        });
-        let pendingChatsArr=[]
-        let chatsArr=[]
-        for (const key in localUsersMap) {
-          
-          if (localUsersMap[key]){
-            if(localUsersMap[key].notViewed==true)
-              pendingChatsArr.push(localUsersMap[key])
-            else
-              chatsArr.push(localUsersMap[key])
+            localUsers[i].notViewed=true;
+            let temp = JSON.parse(JSON.stringify(localUsers[i]))
+            localUsers.splice(i,1)
+            localUsers = [...[temp], ...localUsers]
           }
         }
-        tempOparr=[...tempOparr, ...pendingChatsArr, ...chatsArr]
-
-        // Step 3: Return the map (object) directly
-        resolve(tempOparr);
+        resolve(localUsers);
       })
     })
   }
 
-  killAciveChat(){
-    this.friendId=null
+  killAciveChat() {
+    this.friendId = null
   }
 
 }
