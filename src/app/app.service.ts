@@ -16,6 +16,9 @@ export class AppService {
   currentUserSubject = new BehaviorSubject<any>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
+  isDesktopView: any= new BehaviorSubject(true)
+  isDesktopView$:any=this.isDesktopView.asObservable();
+  
   constructor(
     private http: HttpClient,
     private socket: Socket,
@@ -84,6 +87,14 @@ export class AppService {
 
   updateUser(user:any){
     return this.http.put<any>(`${this.apiUrl}/user/update-user/${user.user_id}`, user);
+  }
+  
+
+  setIsDesktopView(view: boolean): void {
+    this.isDesktopView.next(view);
+  }
+  getIsDesktopView(): Observable<any> {
+    return this.isDesktopView$;
   }
 
 

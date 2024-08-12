@@ -23,7 +23,7 @@
     <div class="chat-input-container">
       <mat-form-field class="chat-input" appearance="outline">
         <mat-icon matPrefix (click)="toggleEmojiPicker()">sentiment_satisfied_alt</mat-icon>
-        <textarea (keyup.enter)="sendMessage()" placeholder="Message" class="message-input-box" matInput cdkTextareaAutosize [(ngModel)]="newMessage"
+        <textarea (keyup.enter)="sendOnEnter()" placeholder="Message" class="message-input-box" matInput cdkTextareaAutosize [(ngModel)]="newMessage"
           #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5">
         </textarea>
         <button [disabled]="newMessage.length<1" mat-icon-button matSuffix (click)="sendMessage()">

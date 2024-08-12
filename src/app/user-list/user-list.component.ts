@@ -26,8 +26,11 @@ export class UserListComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.checkIfDesktop();
-    window.addEventListener('resize', this.checkIfDesktop.bind(this));
+    this.appService.getIsDesktopView().subscribe((res)=>{
+      this.isDesktopView=res;
+    })
+    this.setIfDesktop();
+    window.addEventListener('resize', this.setIfDesktop.bind(this));
     this.fetchChatList()
   }
 
@@ -55,8 +58,8 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  checkIfDesktop() {
-    this.isDesktopView = window.innerWidth >= 768;
+  setIfDesktop() {
+    this.appService.setIsDesktopView(window.innerWidth >= 768);
   }
 
   toggleView() {

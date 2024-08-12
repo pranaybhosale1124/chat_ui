@@ -29,6 +29,7 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges, AfterViewChe
   searchText: string = '';
   searchEnabled: boolean = false;
   showSpinner: boolean = false
+  isDesktopView: any;
   constructor(
     private appService: AppService,
     private playSoundService: PlaySoundService,
@@ -37,6 +38,9 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges, AfterViewChe
 
   ngOnInit(): void {
     this.getMessage()
+    this.appService.getIsDesktopView().subscribe((res)=>{
+      this.isDesktopView=res;
+    })
   }
 
   ngOnChanges() {
@@ -85,6 +89,11 @@ export class ChatComponent implements OnInit, OnDestroy, OnChanges, AfterViewChe
 
   }
 
+  sendOnEnter(){
+    if(!this.isDesktopView)
+      return
+    this.sendMessage()
+  }
   sendMessage(): void {
     if (this.newMessage.trim()) {
       this.messages.push({ senderId: this.currentUser, message: this.newMessage, timestamp: new Date() });
